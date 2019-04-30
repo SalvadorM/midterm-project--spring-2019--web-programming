@@ -1,3 +1,6 @@
+//canvas settings 
+const WIDTH = 720
+const HEIGHT = 480
 
 //posenet
 let video
@@ -5,15 +8,15 @@ let poseNet
 let posNetLoaded = false
 
 //head movement coordinates 
-let RightEarX
-let RightEarY 
-let LeftEarX
-let LeftEarY
+let RightEarX = WIDTH / 2 
+let RightEarY = HEIGHT / 2
+let LeftEarX = WIDTH / 2
+let LeftEarY = HEIGHT / 2
 
 //ball information
 let numBalls = 1;
-let spring = 0.4;
-let gravity = 0.06;
+let spring = 0.6;
+let gravity = 0.3;
 let friction = -1;
 let balls = [];
 
@@ -22,10 +25,7 @@ let soccerIMG
 let soccerHits = 0
 let GAME = false
 let endGame = false
-
-//canvas settings 
-const WIDTH = 720
-const HEIGHT = 480
+let isBallHit = false
 
 
 
@@ -44,7 +44,7 @@ function setup() {
 
   for (let i = 0; i < numBalls; i++) {
     balls[i] = new Ball(
-      random(WIDTH),
+      random((WIDTH - (WIDTH*.6)), (WIDTH - (WIDTH*.4))),
       0,
       random(30, 70),
       i,
@@ -57,12 +57,18 @@ function setup() {
 }}
 
 const getCurrentPose = (poses) => {
-    if (poses.length > 0 ){
-        LeftEarX = poses[0].pose.keypoints[3].position.x
-        LeftEarY = poses[0].pose.keypoints[3].position.y - 100
-        RightEarX = poses[0].pose.keypoints[4].position.x
-        RightEarY = poses[0].pose.keypoints[4].position.y - 100
-    }
+  if (poses.length > 0) {
+    let newLeftEarX = poses[0].pose.keypoints[3].position.x;
+    let newLeftEarY = poses[0].pose.keypoints[3].position.y - 150
+    let newRightEarX = poses[0].pose.keypoints[4].position.x
+    let newRightEarY = poses[0].pose.keypoints[4].position.y - 150;
+
+    LeftEarX = lerp(LeftEarX, newLeftEarX, 0.2)
+    LeftEarY = lerp(LeftEarY, newLeftEarY, 0.2)
+    RightEarX = lerp(RightEarX, newRightEarX, 0.2)
+    RightEarY = lerp(RightEarY, newRightEarY, 0.2)
+
+  }
 }
 
 const callPoseNet = () => {
@@ -94,17 +100,23 @@ function draw() {
     line(LeftEarX, LeftEarY, RightEarX, RightEarY)
 
     //start game 
-    
-    
+
+    if(!endGame){
+      stroke(0);
+      fill(255);
+      textSize(80);
+      text(soccerHits, WIDTH - 120, 70)
+        balls.forEach(ball => {
+          ball.move();
+          ball.display();
+        });
+    }else{ 
+       
     stroke(0);
     fill(255);
     textSize(80);
-    text(soccerHits, WIDTH - 120, 70)
-    if(!endGame){
-      balls.forEach(ball => {
-        ball.move();
-        ball.display();
-      });
+    textAlign(CENTER, CENTER);
+    text(`Game Over`, WIDTH/2, HEIGHT/2)
     }
     }
 

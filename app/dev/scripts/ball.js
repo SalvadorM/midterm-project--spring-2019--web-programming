@@ -21,6 +21,10 @@ class Ball {
           soccerHits ++
           this.vx = random(-.6, .6)
           this.vy *= -1;
+          if(this.vy > 0){
+            this.vy *= -1;
+          }
+
       }
       
       if (this.x + this.diameter / 2 > width) {

@@ -11,7 +11,7 @@ const compileHTMLForProd = () => {
             removeComments: true,
             collapseWhitespace: true
         }))
-        .pipe(dest(`./app/prod/compressed-html`))
+        .pipe(dest(`./app/prod/`))
 }
 
 module.exports = compileHTMLForProd

@@ -1,12 +1,68 @@
 $bg-color: rgba(0, 150, 136, 1);
+$btn-bg-color: rgba(0, 0, 0, 0);
+$btn-br-color: rgba(0, 0, 0, 0.6);
+    body {
+    background-color: $bg-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
 
-body {
- background-color: $bg-color;
- display: flex;
- align-items: center;
- justify-content: center;
-}
+    .container {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+    }
 
-#defaultCanvas0 {
-    margin-top: 100px;
-}
+    #defaultCanvas0 {
+        margin-top: 100px;
+    }
+
+
+    //header
+    .header { 
+        display: block;
+        #title {
+            font-family: 'Bangers', cursive;
+            font-size: 4em;
+        }
+        
+    }
+
+  //form
+    .sub-title {
+        color:rgba(0,0,0,0.5);
+        font-family: 'Bangers', cursive;
+    }
+    .game-form-container {
+      display: block;
+      text-align: center;
+    }
+
+    .GameBtn, .NewGameBtn {
+        margin-top: 20px;
+        border-radius: 20px;
+        border-color: $btn-br-color;
+        text-shadow: 0px 1px 3px #000000;
+        color: #ffffff;
+        background-color: $btn-bg-color;
+        font-size: 42px;
+        padding: 13px 20px 13px 20px;
+        text-decoration: none
+    }
+
+    p {
+        font-family: 'Courier New', Courier, monospace
+    }
+
+    //video 
+    .video-container {
+        width: 100%;
+        margin-top: 100px;
+    }
+
+    //canvas
+    #defaultCanvas0 {
+        width: 100%;
+        margin: auto;
+    }
